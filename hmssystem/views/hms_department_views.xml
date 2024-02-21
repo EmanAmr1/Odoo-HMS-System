@@ -1,0 +1,45 @@
+<odoo>
+<data>
+
+<record id="department_action" model="ir.actions.act_window">
+<field name='name'>Depatments</field>
+<field name='res_model'>hms.department</field>
+</record>
+
+
+
+<record id="department_system_form_view" model="ir.ui.view">
+<field name='name'>Department Form View</field>
+<field name='model'>hms.department</field>
+<field name="arch" type='xml'>
+
+<form>
+<sheet>
+
+<group string='Department Information'>
+<field name="name"/>
+<field name="capacity"/>
+<field name="is_opened"/>
+</group>
+
+<group string="Patients information">
+<field name='patients'>
+
+<tree>
+<field name="FirstName"/>
+<field name="LastName"/>
+<field name="Age"/>
+</tree>
+
+</field>
+</group>
+
+
+</sheet>
+</form>
+</field>
+</record>
+
+<menuitem name='Departments' id="department_menu" parent="hms_main_menu" action="department_action" />
+</data>
+</odoo>

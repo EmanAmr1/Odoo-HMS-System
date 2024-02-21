@@ -1,0 +1,93 @@
+<odoo>
+<data>
+
+<record id="patients_action" model="ir.actions.act_window">
+<field name='name'>Patients</field>
+<field name='res_model'>hms.system</field>
+</record>
+
+<record id="patient_system_tree_view" model="ir.ui.view">
+<field name='name'>Patient Tree View</field>
+<field name='model'>hms.system</field>
+<field name="arch" type='xml'>
+
+<tree>
+<field name="FirstName"/>
+<field name="LastName"/>
+</tree>
+
+</field>
+</record>
+
+
+<record id="patient_system_form_view" model="ir.ui.view">
+<field name='name'>Patient Form View</field>
+<field name='model'>hms.system</field>
+<field name="arch" type='xml'>
+
+<form>
+
+
+
+
+<sheet>
+
+<group string='General Information'>
+<field name="FirstName"/>
+<field name="LastName"/>
+<field name="BirthDate"/>
+<field name="Image"/>
+<field name="Address"/>
+<field name="Age"/>
+<field name="Email"/>
+<field name="state"/>
+</group>
+
+<group string="Medical Information">
+<field name="History" attrs="{'invisible': [('Age', '&lt;', 50)]}"/>
+<field name="CRratio" attrs="{'required': [('PCR', '=', True)]}" />
+<field name="blood_type"/>
+<field name="PCR"/>
+</group>
+
+<notebook>
+
+<page  string="Department information"  name="Department_information">
+<group >
+<field name="department_id" domain="[('is_opened','=',True)]" />
+<field name="department_capacity"/>
+</group>
+</page>
+
+<page  string="Doctor information"  name="Doctor_information" groups="hmssystem.all_managers_group">
+<group >
+<field name="doctor_ids" widget="many2many_tags" attrs="{'readonly': [('department_id', '=', False)]}"/>
+</group>
+</page>
+
+
+<page  string="State Log"  name="State_Log">
+<field name="state_log">
+<tree>
+<field name="create_uid"/>
+<field name="create_date"/>
+<field name="description"/>
+</tree>
+</field>
+</page>
+
+
+
+</notebook>
+
+
+</sheet>
+</form>
+</field>
+</record>
+
+
+<menuitem name='HMS' id="hms_main_menu" />
+<menuitem name='patients' id="patients_menu" parent="hms_main_menu" action="patients_action" />
+</data>
+</odoo>
